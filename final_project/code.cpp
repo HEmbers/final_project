@@ -19,7 +19,7 @@ enum { ESC = 27, LEFT = 75, RIGHT = 77, UP = 72, DOWN = 80 };
 #define putsxy(x, y, s) {gotoxy(x, y);puts(s);}
 #define BX 5
 #define BY 1
-#define BW 14
+#define BW 10
 #define BH 20
 
 void DrawScreen();
@@ -68,7 +68,7 @@ int main()
 	// 가장자리는 벽, 나머지는 빈 공간으로 초기화한다.
 	for (x = 0; x < BW + 2; x++) {
 		for (y = 0; y < BH + 2; y++) {
-			if (y == 0 || y == BH + 1 || x == 0 || x == BW + 1 || x == 9 || x > 9 && y == 10) {
+			if (y == 0 || y == BH + 1 || x == 0 || x == BW + 1) {
 				board[x][y] = WALL;
 			}
 			else {
@@ -76,6 +76,7 @@ int main()
 			}
 		}
 	}
+
 	DrawScreen();
 	nFrame = 20;
 
@@ -111,7 +112,7 @@ int main()
 
 void DrawScreen()
 {
-	for (int x = 0; x < BW + 2; x++) {
+	for (int x = 0; x < BW+2; x++) {
 		for (int y = 0; y < BH + 2; y++) {
 			putsxy(BX + x * 2, BY + y, arTile[board[x][y]]);
 		}
@@ -231,7 +232,7 @@ void TestFull()
 		// 한줄이 가득 찼으면 이 줄을 제거한다.
 		if (bFull) {
 			for (int ty = y; ty > 1; ty--) {
-				for (int x = 1; x < BW + 1; x++) {
+				for (int x = 1; x < BW+1; x++) {
 					board[x][ty] = board[x][ty - 1];
 				}
 			}
